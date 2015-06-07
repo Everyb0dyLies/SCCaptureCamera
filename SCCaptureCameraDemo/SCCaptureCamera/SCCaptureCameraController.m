@@ -9,7 +9,7 @@
 #import "SCCaptureCameraController.h"
 #import "SCSlider.h"
 #import "SCCommon.h"
-#import "SVProgressHUD.h"
+//#import "SVProgressHUD.h"
 
 #import "SCNavigationController.h"
 #import <AssetsLibrary/AssetsLibrary.h>
@@ -564,15 +564,15 @@ void c_slideAlpha() {
 
 //拍照页面，"X"按钮
 - (void)dismissBtnPressed:(id)sender {
-  if (self.navigationController) {
-    if (self.navigationController.viewControllers.count == 1) {
-      [self.navigationController dismissModalViewControllerAnimated:YES];
+    if (self.navigationController) {
+        if (self.navigationController.viewControllers.count == 1) {
+            [self.navigationController dismissModalViewControllerAnimated:YES];
+        } else {
+            [self.navigationController popViewControllerAnimated:YES];
+        }
     } else {
-      [self.navigationController popViewControllerAnimated:YES];
+        [self dismissModalViewControllerAnimated:YES];
     }
-  } else {
-    [self dismissModalViewControllerAnimated:YES];
-  }
 }
 
 
