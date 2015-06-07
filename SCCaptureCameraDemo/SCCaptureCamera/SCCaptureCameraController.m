@@ -14,9 +14,9 @@
 #import "SCNavigationController.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 
-#define SWITCH_SHOW_FOCUSVIEW_UNTIL_FOCUS_DONE      0   //对焦框是否一直闪到对焦完成
+#define SWITCH_SHOW_FOCUSVIEW_UNTIL_FOCUS_DONE      1   //对焦框是否一直闪到对焦完成
 
-#define SWITCH_SHOW_DEFAULT_IMAGE_FOR_NONE_CAMERA   1   //没有拍照功能的设备，是否给一张默认图片体验一下
+#define SWITCH_SHOW_DEFAULT_IMAGE_FOR_NONE_CAMERA   0   //没有拍照功能的设备，是否给一张默认图片体验一下
 
 //height
 #define CAMERA_TOPVIEW_HEIGHT   44  //title
@@ -131,7 +131,7 @@
   [self addTopView];
   [self addbottomContainerView];
   [self addCameraMenuView];
-//  [self addFocusView];
+  [self addFocusView];
   [self addCameraCover];
 //  [self addPinchGesture];
 
@@ -258,13 +258,29 @@
              action:@selector(takePictureBtnPressed:)
          parentView:_bottomContainerView];
 
-  CGFloat albumBtnWidth = 40;
-  _albumBtn = [self buildButton:CGRectMake(((SC_APP_SIZE.width - cameraBtnLength) / 2 - albumBtnWidth)/2, (_bottomContainerView.frame.size.height - albumBtnWidth)/2, albumBtnWidth, albumBtnWidth)
-                   normalImgStr:@"take_photo_picture_default.png"
-                highlightImgStr:nil
-                 selectedImgStr:nil
-                         action:@selector(showAlbum)
-                     parentView:_bottomContainerView];
+//  CGFloat albumBtnWidth = 40;
+//  _albumBtn = [self buildButton:CGRectMake(((SC_APP_SIZE.width - cameraBtnLength) / 2 - albumBtnWidth)/2, (_bottomContainerView.frame.size.height - albumBtnWidth)/2, albumBtnWidth, albumBtnWidth)
+//                   normalImgStr:@"take_photo_picture_default.png"
+//                highlightImgStr:nil
+//                 selectedImgStr:nil
+//                         action:@selector(showAlbum)
+//                     parentView:_bottomContainerView];
+    CGFloat flashBtnWidth = 44;
+    UIButton *flashBtn = [self buildButton:CGRectMake(((SC_APP_SIZE.width - cameraBtnLength) / 2 - flashBtnWidth)/2, (_bottomContainerView.frame.size.height - flashBtnWidth)/2, flashBtnWidth, flashBtnWidth)
+                              normalImgStr:@"flashing_off"
+                           highlightImgStr:@""
+                            selectedImgStr:@""
+                                    action:NSSelectorFromString(@"flashBtnPressed:")
+                                parentView:_bottomContainerView];
+    [_bottomContainerView addSubview:flashBtn];
+    CGFloat switchCameraBtnWidth = 44;
+    UIButton *switchCameraBtn = [self buildButton:CGRectMake(((SC_APP_SIZE.width * 3/2 + cameraBtnLength / 2) - switchCameraBtnWidth) / 2, (_bottomContainerView.frame.size.height - switchCameraBtnWidth)/2, switchCameraBtnWidth, switchCameraBtnWidth)
+                                     normalImgStr:@"switch_camera"
+                                  highlightImgStr:@""
+                                   selectedImgStr:@""
+                                           action:NSSelectorFromString(@"switchCameraBtnPressed:")
+                                       parentView:_bottomContainerView];
+    [_bottomContainerView addSubview:switchCameraBtn];
 }
 
 - (void)showAlbum {
@@ -289,7 +305,7 @@
   CGFloat eachW = CAMERA_MENU_VIEW_HEIGH;
   CGFloat theH = CAMERA_MENU_VIEW_HEIGH;
   UIView *parent = _topContainerView;
-  for (int i = 0; i < actionArr.count; i++) {
+  for (int i = 0; i < 1; i++) {
     UIButton * btn = [self buildButton:CGRectMake(eachW * i, CAMERA_TOPVIEW_HEIGHT - theH, eachW, theH)
                           normalImgStr:[normalArr objectAtIndex:i]
                        highlightImgStr:[highlightArr objectAtIndex:i]
